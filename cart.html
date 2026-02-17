@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart - Ajit General Store</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🛒 Ajit General Store</div>
+    
+
+
+    <nav id="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+        <a href="orders.html">My Orders</a>
+    </nav>
+
+    <div class="header-icons">
+        <input type="text" placeholder="Search products...">
+        <button onclick="toggleDarkMode()">🌙</button>
+        <span class="hamburger" onclick="toggleMenu()">☰</span>
+    </div>
+</header>
+
+
+<!-- CART CONTAINER -->
+<div class="container">
+
+    <h2>Your Cart</h2>
+
+    <div id="cartItems"></div>
+
+    <h3 id="totalPrice"></h3>
+
+    <div style="margin-top:20px;">
+        <button onclick="clearCart()" class="danger-btn">Clear Cart</button>
+        <a href="checkout.html"><button>Checkout</button></a>
+    </div>
+
+</div>
+
+
+<!-- MAIN SCRIPT -->
+
+
+
+<!-- PAGE FUNCTIONS -->
+<script>
+
+function toggleMenu(){
+    document.getElementById("nav").classList.toggle("show");
+}
+
+function toggleDarkMode(){
+    document.body.classList.toggle("dark");
+}
+function goBack(){
+        window.history.back();
+     }
+
+
+/* LOAD CART */
+function loadCart(){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let cartDiv = document.getElementById("cartItems");
+    let total = 0;
+
+    if(cart.length === 0){
+        cartDiv.innerHTML = "<p>Your cart is empty</p>";
+        document.getElementById("totalPrice").innerText="Total: ₹0";
+        return;
+    }
+
+    let html = "";
+
+    cart.forEach((item,index)=>{
+        total += item.price * item.qty;
+
+        html += `
+        <div class="cart-item">
+            <div>
+                <strong>${item.name}</strong><br>
+                ₹${item.price} × ${item.qty}
+            </div>
+
+            <div>
+                <button onclick="changeQty(${index},-1)">-</button>
+                <button onclick="changeQty(${index},1)">+</button>
+                <button onclick="removeItem(${index})">Remove</button>
+            </div>
+        </div>
+        `;
+    });
+
+    cartDiv.innerHTML = html;
+    document.getElementById("totalPrice").innerText="Total: ₹"+total;
+}
+
+
+/* CHANGE QTY */
+function changeQty(index,change){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart[index].qty += change;
+
+    if(cart[index].qty <= 0){
+        cart.splice(index,1);
+    }
+
+    localStorage.setItem("cart",JSON.stringify(cart));
+    loadCart();
+}
+
+
+/* REMOVE ITEM */
+function removeItem(index){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index,1);
+    localStorage.setItem("cart",JSON.stringify(cart));
+    loadCart();
+}
+
+
+/* CLEAR CART */
+function clearCart(){
+    localStorage.removeItem("cart");
+
+    document.getElementById("cartItems"). innerHTML = "";
+    document.getElementById("totalPrice").innerText = "0"
+    loadCart();
+}
+
+
+/* CHECKOUT */
+
+function checkout(){
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if(cart.length === 0){
+        alert("cart is empty!");
+        return;
+    }
+
+    window.location.href = "checkout.html";
+}
+loadCart();
+
+
+</script>
+<script src="script.js"></script>
+</body>
+</html>

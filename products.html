@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products - Ajit General Store</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+     
+     <script>
+     function toggleMenu() {
+        document.getElementById("nav").classList.toggle("show");
+     }
+     function toggleDarkMode(){
+        document.body.classList.toggle("dark");
+     }
+     function goBack(){
+        window.history.back();
+     }
+
+        </script>
+
+<header>
+    <div class="logo">🛒 Aji General Store</div>
+   
+    <nav id="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+        <a href="orders.html">My Orders</a>
+        
+    </nav>
+    <div class="header-icons">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <button onclick="toggleDarkMode()">🌙</button>
+        <span class="hamburger" onclick="toggleMenu()">☰</span>
+    </div>
+</header>
+
+<section class="categories">
+    <button onclick="filterCategory('all')">All</button>
+    <button onclick="filterCategory('grocery')">Grocery</button>
+    <button onclick="filterCategory('snacks')">Snacks</button>
+    <button onclick="filterCategory('beverages')">Beverages</button>
+    <button onclick="filterCategory('household')">Household</button>
+</section>
+
+<section class="products" id="productList">
+
+    <div class="product-card grocery">
+        <h3>Rice</h3>
+        <p>₹50/kg</p>
+        <button onclick="addToCart('Rice 1kg', 50)">Add to Cart</button>
+    </div>
+
+    <div class="product-card grocery">
+        <h3> Basmati Rice</h3>
+        <p>₹250/kg</p>
+        <button onclick="addToCart('Basmati Rice 1kg', 250)">Add to Cart</button>
+    </div>
+
+    <div class="product-card snacks">
+        <h3>Chips</h3>
+        <p>₹20</p>
+        <button onclick="addToCart('Chips', 20)">Add to Cart</button>
+    </div>
+    <div class="product-card snacks">
+        <h3>Lays</h3>
+        <p>₹20</p>
+        <button onclick="addToCart('lays',20)">Add to Cart</button>
+    </div>
+    <div class="product-card snacks">
+        <h3>KurKure</h3>
+        <p>₹20</p>
+        <button onclick="addToCart('KurKure',20)">Add to Cart</button>
+    </div>
+    <div class="product-card snacks">
+        <h3>mixture</h3>
+        <p>₹220 /500g</p>
+        <button onclick="addToCart('mixture 500g',220)">Add to Cart</button>
+    </div>
+
+    <div class="product-card beverages">
+        <h3>Cold Drink</h3>
+        <p>₹40</p>
+        <button onclick="addToCart('Cold Drink',40)">Add to Cart</button>
+    </div>
+    <div class="product-card beverages">
+        <h3>Cold Drink</h3>
+        <h4>2l</h4>
+        <p>₹100</p>
+        <button onclick="addToCart('Cold Drink',100)">Add to Cart</button>
+    </div>
+
+    <div class="product-card household">
+        <h3>Detergent</h3>
+        <p>₹120</p>
+        <button onclick="addToCart('Detergent',120)">Add to Cart</button>
+    </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

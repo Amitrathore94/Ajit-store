@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Orders - Ajit General Store</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+
+<h1 style="text-align:center;">My Orders</h1>
+
+<div class="container">
+  <div id="ordersContainer"></div>
+</div>
+
+<script>
+
+let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+const container = document.getElementById("ordersContainer");
+
+if(orders.length === 0){
+  container.innerHTML = "<p style='text-align:center;'>No orders yet</p>";
+}else{
+
+  orders.reverse().forEach(order=>{
+
+    let itemsHTML = "";
+
+    order.items.forEach(item=>{
+      itemsHTML += `
+        <li>${item.name} - ₹${item.price} × ${item.qty}</li>
+      `;
+    });
+
+    container.innerHTML += `
+      <div class="order-box">
+        <h3>Order ID: ${order.id}</h3>
+        <p><b>Date:</b> ${order.date}</p>
+        <p><b>Name:</b> ${order.name}</p>
+        <p><b>Address:</b> ${order.address}</p>
+        <p><b>Payment:</b> ${order.payment}</p>
+        <b>Items:</b>
+        <ul>${itemsHTML}</ul>
+      </div>
+    `;
+  });
+
+}
+
+</script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout</title>
+
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#f6d365,#fda085);
+    margin:0;
+}
+
+.container{
+    max-width:800px;
+    margin:50px auto;
+    background:white;
+    box-shadow: #f6d365;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+h2{margin-bottom:20px}
+
+input,textarea,select{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
+
+button{
+    background:#ff9800;
+    border:none;
+    padding:15px;
+    width:100%;
+    font-size:18px;
+    color:rgb(226, 228, 145);
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e68900;
+}
+
+.summary{
+    background:#9f6a6a;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:20px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Checkout</h2>
+
+<div id="orderSummary" class="summary"></div>
+
+<form id="checkoutForm">
+
+<input type="text" id="name" placeholder="Full Name" required>
+<input type="text" id="phone" placeholder="Phone Number" required>
+
+<textarea id="address" placeholder="Full Address" required></textarea>
+
+<select id="payment">
+<option value="Cash on Delivery">Cash on Delivery</option>
+<option value="UPI">UPI</option>
+</select>
+
+<button type="submit">Place Order</button>
+
+</form>
+
+</div>
+
+<script>
+
+// LOAD CART SUMMARY
+function loadCheckout(){
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let div = document.getElementById("orderSummary");
+
+    if(cart.length===0){
+        div.innerHTML="<b>Your cart is empty</b>";
+        return;
+    }
+
+    let html="<b>Order Summary</b><br><br>";
+    let total=0;
+
+    cart.forEach(item=>{
+        let itemTotal=item.price*item.qty;
+        total+=itemTotal;
+        html+=`${item.name} x ${item.qty} = ₹${itemTotal}<br>`;
+    });
+
+    html+=`<br><b>Total: ₹${total}</b>`;
+    div.innerHTML=html;
+}
+
+// SUBMIT ORDER
+document.getElementById("checkoutForm").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    let name=document.getElementById("name").value;
+    let phone=document.getElementById("phone").value;
+    let address=document.getElementById("address").value;
+    let payment=document.getElementById("payment").value;
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    if(cart.length===0){
+        alert("Cart empty!");
+        return;
+    }
+
+    let orderText="New Order%0A";
+
+    cart.forEach(item=>{
+        orderText +=`${item.name} x ${item.qty} = ₹${item.price*item.qty}%0A`;
+    });
+
+    orderText +=`%0AName: ${name}%0APhone: ${phone}%0AAddress: ${address}%0APayment: ${payment}`;
+
+    localStorage.removeItem("cart");
+
+    // 🔴 PUT YOUR WHATSAPP NUMBER HERE
+    window.open("https://wa.me/919523048747?text="+orderText,"_blank");
+
+    alert("Order sent to WhatsApp!");
+
+    window.location="index.html";
+});
+
+// RUN
+loadCheckout();
+window.onload = loadCheckout;
+
+</script>
+
+</body>
+</html>

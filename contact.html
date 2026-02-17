@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Contact - General Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ 
+    <header>
+    <div class="logo">🛒 Rathore Store</div>
+    <button class="back-btn"
+    onclick="goback()">← Back</button>
+
+    <nav id="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin.html">Admin</a>
+        <a href="orders.html">My Orders</a>
+    </nav>
+
+    <div class="header-icons">
+        <input type="text" id="searchInput" placeholder="Search products...">
+        <button onclick="toggleDarkMode()"></button>
+        <span class="hamburger" onclick="toggleMenu()">☰</span>
+    </div>
+    <script>
+     function toggleMenu() {
+        document.getElementById("nav").classList.toggle("show");
+     }
+     function toggleDarkMode(){
+        document.body.classList.toggle("dark");
+     }
+     
+
+        </script>
+</header>
+
+    <div class="container">
+        <h2>Contact Us</h2>
+        <p><strong>Phone:</strong> xxxxxxx</p>
+        <p><strong>Email:</strong> ajitstore@gmail.com</p>
+        <p><strong>Address:</strong> Gola Road, Mahua</p>
+    </div>
+<script src="script.js" defer></script>
+</body>
+</html>
